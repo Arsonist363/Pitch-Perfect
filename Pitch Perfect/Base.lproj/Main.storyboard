@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qwg-nV-jPY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14D87p" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qwg-nV-jPY">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -42,6 +42,14 @@
                                     <action selector="stopRecording:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="5Ed-Dc-Ivd"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Record" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kzC-fH-MNV">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular" misplaced="YES">
+                                    <rect key="frame" x="245" y="287" width="105" height="21"/>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.39823555620000001" green="0.5338486777" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -50,15 +58,22 @@
                             <constraint firstAttribute="centerX" secondItem="fvb-94-Wtf" secondAttribute="centerX" id="Rfr-AC-e0E"/>
                             <constraint firstAttribute="centerX" secondItem="aoi-SO-YPR" secondAttribute="centerX" id="dZa-nz-QBc"/>
                             <constraint firstAttribute="centerY" secondItem="fvb-94-Wtf" secondAttribute="centerY" id="goT-ts-71D"/>
+                            <constraint firstItem="kzC-fH-MNV" firstAttribute="centerX" secondItem="fvb-94-Wtf" secondAttribute="centerX" id="iQD-da-DU6"/>
                             <constraint firstItem="6UG-PU-4u8" firstAttribute="top" secondItem="fvb-94-Wtf" secondAttribute="bottom" constant="12" id="rYo-sg-kN4"/>
+                            <constraint firstItem="kzC-fH-MNV" firstAttribute="centerY" secondItem="fvb-94-Wtf" secondAttribute="centerY" constant="-104.5" id="szq-xQ-Hhc">
+                                <variation key="heightClass=regular" constant="-104"/>
+                            </constraint>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="fvb-94-Wtf"/>
                                 <exclude reference="6UG-PU-4u8"/>
                                 <exclude reference="aoi-SO-YPR"/>
+                                <exclude reference="kzC-fH-MNV"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="iQD-da-DU6"/>
+                                <exclude reference="szq-xQ-Hhc"/>
                                 <exclude reference="Rfr-AC-e0E"/>
                                 <exclude reference="goT-ts-71D"/>
                                 <exclude reference="1qS-0a-RDX"/>
@@ -72,8 +87,11 @@
                                 <include reference="fvb-94-Wtf"/>
                                 <include reference="6UG-PU-4u8"/>
                                 <include reference="aoi-SO-YPR"/>
+                                <include reference="kzC-fH-MNV"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="iQD-da-DU6"/>
+                                <include reference="szq-xQ-Hhc"/>
                                 <include reference="Rfr-AC-e0E"/>
                                 <include reference="goT-ts-71D"/>
                                 <include reference="1qS-0a-RDX"/>
@@ -87,6 +105,7 @@
                     <connections>
                         <outlet property="Microphone" destination="fvb-94-Wtf" id="Atc-zU-uHY"/>
                         <outlet property="Recording" destination="6UG-PU-4u8" id="vjb-Vk-veY"/>
+                        <outlet property="TapRecord" destination="kzC-fH-MNV" id="Thr-CX-mIh"/>
                         <outlet property="stopbutton" destination="aoi-SO-YPR" id="0FK-lm-TmV"/>
                         <segue destination="Tel-1x-3bs" kind="show" identifier="StopRecording" id="zFE-k9-F5a"/>
                     </connections>
