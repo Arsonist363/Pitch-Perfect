@@ -56,19 +56,19 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         let recordingName = formatter.stringFromDate(currentDateTime)+".wav"
         let pathArray = [dirPath, recordingName]
         let filePath = NSURL.fileURLWithPathComponents(pathArray)
-        println(filePath)
+        print(filePath)
         
-        var session = AVAudioSession.sharedInstance()
-        session.setCategory(AVAudioSessionCategoryPlayAndRecord, error: nil)
+        let session = AVAudioSession.sharedInstance()
+        try! session.setCategory(AVAudioSessionCategoryPlayAndRecord)
         
-        audioRecorder = AVAudioRecorder(URL: filePath, settings: nil, error: nil)
+        try! audioRecorder = AVAudioRecorder(URL: filePath!, settings: [:])
         audioRecorder.delegate = self
         audioRecorder.meteringEnabled = true
         audioRecorder.prepareToRecord()
         audioRecorder.record()
         
     }
-    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
+    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
         if(flag){
         recordedAudio = RecordedAudio()
         recordedAudio.filePathUrl = recorder.url
@@ -76,23 +76,22 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         //TODO: STEP 2 - MOVE TO THE NEXT SCENE AKA PERFORM SEGUE
         self.performSegueWithIdentifier("StopRecording", sender: recordedAudio)
         }else{
-        println("Recording was not succesfull")
             Microphone.enabled = true
             stopbutton.hidden = true
         }
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "StopRecording") {
-            let playsoundsVC:PlaySoundsViewController = segue.destinationViewController as PlaySoundsViewController
-            let data = sender as RecordedAudio
+            let playsoundsVC:PlaySoundsViewController = segue.destinationViewController as! PlaySoundsViewController
+            let data = sender as! RecordedAudio
             playsoundsVC.receivedAudio = data
         }
     }
     @IBAction func stopRecording(sender: UIButton) {
         Recording.hidden = true
         audioRecorder.stop()
-        var audioSession = AVAudioSession.sharedInstance()
-        audioSession.setActive(false, error: nil)
+        let audioSession = AVAudioSession.sharedInstance()
+        try! audioSession.setActive(false)
     }
     
     

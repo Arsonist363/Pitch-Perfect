@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 
 class PlaySoundsViewController: UIViewController {
+    
     var audioPlayer:AVAudioPlayer!
     var receivedAudio:RecordedAudio!
     
@@ -25,16 +26,16 @@ class PlaySoundsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
              
-        audioPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl, error: nil)
+        try! audioPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl)
         audioPlayer.enableRate = true
         
         audioEngine = AVAudioEngine()
-        audioFile = AVAudioFile(forReading: receivedAudio.filePathUrl, error: nil)
+        try! audioFile = AVAudioFile(forReading: receivedAudio.filePathUrl)
         
         //enable audio playback in the larger speaker
-        session.setCategory(AVAudioSessionCategoryPlayback, error: nil)
+        try! session.setCategory(AVAudioSessionCategoryPlayback)
         
-        echoPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl, error: nil)
+        try! echoPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl)
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,10 +80,10 @@ class PlaySoundsViewController: UIViewController {
         audioEngine.stop()
         audioEngine.reset()
         
-        var audioPlayerNode = AVAudioPlayerNode()
+        let audioPlayerNode = AVAudioPlayerNode()
         audioEngine.attachNode(audioPlayerNode)
         
-        var changePitchEffect = AVAudioUnitTimePitch()
+        let changePitchEffect = AVAudioUnitTimePitch()
         changePitchEffect.pitch = pitch
         audioEngine.attachNode(changePitchEffect)
         
@@ -90,7 +91,7 @@ class PlaySoundsViewController: UIViewController {
         audioEngine.connect(changePitchEffect, to: audioEngine.outputNode, format: nil)
         
         audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
-        audioEngine.startAndReturnError(nil)
+        
         
         audioPlayerNode.play()
     }
@@ -98,14 +99,6 @@ class PlaySoundsViewController: UIViewController {
        @IBAction func StopAudio(sender: UIButton) {
         audioPlayer.stop()
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
